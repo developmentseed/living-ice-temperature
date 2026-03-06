@@ -21,6 +21,8 @@ jobs:
         working-directory: frontend
       - name: Check
         run: scripts/check
-      - name: Build
+      - name: Test
+        run: uv run pytest
+      - name: Build frontend
         run: yarn build
         working-directory: frontend
