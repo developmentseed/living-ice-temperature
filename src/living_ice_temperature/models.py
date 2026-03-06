@@ -2,11 +2,11 @@ from __future__ import annotations
 
 import csv
 from pathlib import Path
-from typing import Any, Literal
+from typing import Annotated, Any, Literal
 
 from geojson_pydantic import Feature, FeatureCollection, Point
 from geojson_pydantic.types import Position2D
-from pydantic import BaseModel, model_validator
+from pydantic import BaseModel, BeforeValidator, model_validator
 
 
 def parse_bool(value: Any) -> bool:
@@ -28,6 +28,10 @@ class Borehole(BaseModel):
     ice_thickness: float
     drilled_depth: float
     original_publication: str
+    has_temperature: Annotated[bool, BeforeValidator(parse_bool)]
+    has_chemistry: Annotated[bool, BeforeValidator(parse_bool)]
+    has_conductivity: Annotated[bool, BeforeValidator(parse_bool)]
+    has_grain_size: Annotated[bool, BeforeValidator(parse_bool)]
 
     @model_validator(mode="before")
     @classmethod
@@ -73,10 +77,10 @@ class Borehole(BaseModel):
                     "lon",
                     "ice_thickness",
                     "drilled_depth",
-                    "temperature",
-                    "chemistry",
-                    "conductivity",
-                    "grain_size",
+                    "has_temperature",
+                    "has_chemistry",
+                    "has_conductivity",
+                    "has_grain_size",
                     "original_publication",
                 ],
             )

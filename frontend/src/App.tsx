@@ -1,4 +1,3 @@
-import { useEffect, useRef } from "react";
 import { Box } from "@chakra-ui/react";
 import "leaflet/dist/leaflet.css";
 import "proj4leaflet";
