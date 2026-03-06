@@ -1,8 +1,8 @@
 import { useEffect, useRef } from "react";
 import { Box, Heading } from "@chakra-ui/react";
-import "proj4leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import "proj4leaflet";
 
 const EPSG3031 = new L.Proj.CRS(
   "EPSG:3031",
