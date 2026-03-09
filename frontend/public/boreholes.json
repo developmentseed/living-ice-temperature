@@ -1,4 +1,3 @@
-hi
 {
   "type": "FeatureCollection",
   "features": [
@@ -24,7 +23,10 @@ hi
         "has_temperature": true,
         "has_chemistry": false,
         "has_conductivity": false,
-        "has_grain_size": false
+        "has_grain_size": false,
+        "temperature_data_url": "https://data.source.coop/englacial/ice-sheet-temperature/AntarcticaBoreholeData/BindschadlerIceStream/BIS9845_temp.csv",
+        "chemistry_data_url": null,
+        "grainsize_data_url": null
       }
     },
     {
@@ -49,7 +51,10 @@ hi
         "has_temperature": true,
         "has_chemistry": false,
         "has_conductivity": false,
-        "has_grain_size": false
+        "has_grain_size": false,
+        "temperature_data_url": "https://data.source.coop/englacial/ice-sheet-temperature/AntarcticaBoreholeData/Byrd/byrd_temp.csv",
+        "chemistry_data_url": null,
+        "grainsize_data_url": null
       }
     },
     {
@@ -74,7 +79,10 @@ hi
         "has_temperature": true,
         "has_chemistry": false,
         "has_conductivity": false,
-        "has_grain_size": false
+        "has_grain_size": false,
+        "temperature_data_url": "https://data.source.coop/englacial/ice-sheet-temperature/AntarcticaBoreholeData/CraryIceRise/CIRD_temp.csv",
+        "chemistry_data_url": null,
+        "grainsize_data_url": null
       }
     },
     {
@@ -99,7 +107,10 @@ hi
         "has_temperature": true,
         "has_chemistry": false,
         "has_conductivity": true,
-        "has_grain_size": true
+        "has_grain_size": true,
+        "temperature_data_url": "https://data.source.coop/englacial/ice-sheet-temperature/AntarcticaBoreholeData/DomeC/domec_temp.csv",
+        "chemistry_data_url": "https://data.source.coop/englacial/ice-sheet-temperature/AntarcticaBoreholeData/DomeC/domec_imp.csv",
+        "grainsize_data_url": "https://data.source.coop/englacial/ice-sheet-temperature/AntarcticaBoreholeData/DomeC/domec_grainsize.csv"
       }
     },
     {
@@ -124,7 +135,10 @@ hi
         "has_temperature": true,
         "has_chemistry": false,
         "has_conductivity": false,
-        "has_grain_size": false
+        "has_grain_size": false,
+        "temperature_data_url": "https://data.source.coop/englacial/ice-sheet-temperature/AntarcticaBoreholeData/DomeF/domef_temp.csv",
+        "chemistry_data_url": null,
+        "grainsize_data_url": null
       }
     },
     {
@@ -149,7 +163,10 @@ hi
         "has_temperature": true,
         "has_chemistry": false,
         "has_conductivity": false,
-        "has_grain_size": false
+        "has_grain_size": false,
+        "temperature_data_url": "https://data.source.coop/englacial/ice-sheet-temperature/AntarcticaBoreholeData/EngelhardtIceRidge/ER9612_temp.csv",
+        "chemistry_data_url": null,
+        "grainsize_data_url": null
       }
     },
     {
@@ -174,7 +191,10 @@ hi
         "has_temperature": true,
         "has_chemistry": false,
         "has_conductivity": false,
-        "has_grain_size": false
+        "has_grain_size": false,
+        "temperature_data_url": "https://data.source.coop/englacial/ice-sheet-temperature/AntarcticaBoreholeData/KambIceStream/KIS0012_temp.csv",
+        "chemistry_data_url": null,
+        "grainsize_data_url": null
       }
     },
     {
@@ -199,7 +219,10 @@ hi
         "has_temperature": true,
         "has_chemistry": false,
         "has_conductivity": false,
-        "has_grain_size": false
+        "has_grain_size": false,
+        "temperature_data_url": "https://data.source.coop/englacial/ice-sheet-temperature/AntarcticaBoreholeData/KambIceStream/KIS006_temp.csv",
+        "chemistry_data_url": null,
+        "grainsize_data_url": null
       }
     },
     {
@@ -224,7 +247,10 @@ hi
         "has_temperature": true,
         "has_chemistry": false,
         "has_conductivity": false,
-        "has_grain_size": false
+        "has_grain_size": false,
+        "temperature_data_url": "https://data.source.coop/englacial/ice-sheet-temperature/AntarcticaBoreholeData/KambIceStream/KIS009_temp.csv",
+        "chemistry_data_url": null,
+        "grainsize_data_url": null
       }
     },
     {
@@ -249,7 +275,10 @@ hi
         "has_temperature": true,
         "has_chemistry": false,
         "has_conductivity": false,
-        "has_grain_size": false
+        "has_grain_size": false,
+        "temperature_data_url": "https://data.source.coop/englacial/ice-sheet-temperature/AntarcticaBoreholeData/KambIceStream/KIS962_temp.csv",
+        "chemistry_data_url": null,
+        "grainsize_data_url": null
       }
     },
     {
@@ -274,7 +303,10 @@ hi
         "has_temperature": true,
         "has_chemistry": false,
         "has_conductivity": false,
-        "has_grain_size": false
+        "has_grain_size": false,
+        "temperature_data_url": "https://data.source.coop/englacial/ice-sheet-temperature/AntarcticaBoreholeData/Kohnen/kohnen_temp.csv",
+        "chemistry_data_url": null,
+        "grainsize_data_url": null
       }
     },
     {
@@ -299,7 +331,10 @@ hi
         "has_temperature": true,
         "has_chemistry": false,
         "has_conductivity": false,
-        "has_grain_size": false
+        "has_grain_size": false,
+        "temperature_data_url": "https://data.source.coop/englacial/ice-sheet-temperature/AntarcticaBoreholeData/LawDome/lawdome_temp.csv",
+        "chemistry_data_url": null,
+        "grainsize_data_url": null
       }
     },
     {
@@ -324,7 +359,10 @@ hi
         "has_temperature": true,
         "has_chemistry": true,
         "has_conductivity": true,
-        "has_grain_size": true
+        "has_grain_size": true,
+        "temperature_data_url": null,
+        "chemistry_data_url": null,
+        "grainsize_data_url": "https://data.source.coop/englacial/ice-sheet-temperature/AntarcticaBoreholeData/SipleDome/sipledome_grainsize.csv"
       }
     },
     {
@@ -349,7 +387,10 @@ hi
         "has_temperature": true,
         "has_chemistry": true,
         "has_conductivity": true,
-        "has_grain_size": false
+        "has_grain_size": false,
+        "temperature_data_url": "https://data.source.coop/englacial/ice-sheet-temperature/AntarcticaBoreholeData/TaylorDome/taylordome_temp.csv",
+        "chemistry_data_url": "https://data.source.coop/englacial/ice-sheet-temperature/AntarcticaBoreholeData/TaylorDome/taylordome_imp.csv",
+        "grainsize_data_url": null
       }
     },
     {
@@ -374,7 +415,10 @@ hi
         "has_temperature": true,
         "has_chemistry": false,
         "has_conductivity": false,
-        "has_grain_size": false
+        "has_grain_size": false,
+        "temperature_data_url": "https://data.source.coop/englacial/ice-sheet-temperature/AntarcticaBoreholeData/Unicorn/UC9311_temp.csv",
+        "chemistry_data_url": null,
+        "grainsize_data_url": null
       }
     },
     {
@@ -399,7 +443,10 @@ hi
         "has_temperature": true,
         "has_chemistry": false,
         "has_conductivity": false,
-        "has_grain_size": false
+        "has_grain_size": false,
+        "temperature_data_url": "https://data.source.coop/englacial/ice-sheet-temperature/AntarcticaBoreholeData/Unicorn/UC9314_temp.csv",
+        "chemistry_data_url": null,
+        "grainsize_data_url": null
       }
     },
     {
@@ -424,7 +471,10 @@ hi
         "has_temperature": true,
         "has_chemistry": false,
         "has_conductivity": false,
-        "has_grain_size": false
+        "has_grain_size": false,
+        "temperature_data_url": "https://data.source.coop/englacial/ice-sheet-temperature/AntarcticaBoreholeData/Unicorn/UC9316_temp.csv",
+        "chemistry_data_url": null,
+        "grainsize_data_url": null
       }
     },
     {
@@ -449,7 +499,10 @@ hi
         "has_temperature": true,
         "has_chemistry": false,
         "has_conductivity": false,
-        "has_grain_size": false
+        "has_grain_size": false,
+        "temperature_data_url": "https://data.source.coop/englacial/ice-sheet-temperature/AntarcticaBoreholeData/Unicorn/UC939_temp.csv",
+        "chemistry_data_url": null,
+        "grainsize_data_url": null
       }
     },
     {
@@ -474,7 +527,10 @@ hi
         "has_temperature": true,
         "has_chemistry": true,
         "has_conductivity": true,
-        "has_grain_size": false
+        "has_grain_size": false,
+        "temperature_data_url": "https://data.source.coop/englacial/ice-sheet-temperature/AntarcticaBoreholeData/Vostok/vostok_temp.csv",
+        "chemistry_data_url": "https://data.source.coop/englacial/ice-sheet-temperature/AntarcticaBoreholeData/Vostok/vostok_imp.csv",
+        "grainsize_data_url": null
       }
     },
     {
@@ -499,7 +555,10 @@ hi
         "has_temperature": true,
         "has_chemistry": true,
         "has_conductivity": true,
-        "has_grain_size": false
+        "has_grain_size": false,
+        "temperature_data_url": "https://data.source.coop/englacial/ice-sheet-temperature/AntarcticaBoreholeData/WAISDivide/waisdivide_temp.csv",
+        "chemistry_data_url": "https://data.source.coop/englacial/ice-sheet-temperature/AntarcticaBoreholeData/WAISDivide/waisdivide_imp.csv",
+        "grainsize_data_url": null
       }
     },
     {
@@ -524,7 +583,10 @@ hi
         "has_temperature": true,
         "has_chemistry": false,
         "has_conductivity": false,
-        "has_grain_size": false
+        "has_grain_size": false,
+        "temperature_data_url": "https://data.source.coop/englacial/ice-sheet-temperature/AntarcticaBoreholeData/WhilliansIceStream/WIS881_temp.csv",
+        "chemistry_data_url": null,
+        "grainsize_data_url": null
       }
     },
     {
@@ -549,7 +611,10 @@ hi
         "has_temperature": true,
         "has_chemistry": false,
         "has_conductivity": false,
-        "has_grain_size": false
+        "has_grain_size": false,
+        "temperature_data_url": "https://data.source.coop/englacial/ice-sheet-temperature/AntarcticaBoreholeData/WhilliansIceStream/WIS911_temp.csv",
+        "chemistry_data_url": null,
+        "grainsize_data_url": null
       }
     },
     {
@@ -574,7 +639,10 @@ hi
         "has_temperature": true,
         "has_chemistry": false,
         "has_conductivity": false,
-        "has_grain_size": false
+        "has_grain_size": false,
+        "temperature_data_url": "https://data.source.coop/englacial/ice-sheet-temperature/AntarcticaBoreholeData/WhilliansIceStream/WIS9226_temp.csv",
+        "chemistry_data_url": null,
+        "grainsize_data_url": null
       }
     },
     {
@@ -599,7 +667,10 @@ hi
         "has_temperature": true,
         "has_chemistry": false,
         "has_conductivity": false,
-        "has_grain_size": false
+        "has_grain_size": false,
+        "temperature_data_url": "https://data.source.coop/englacial/ice-sheet-temperature/AntarcticaBoreholeData/WhilliansIceStream/WIS9547_temp.csv",
+        "chemistry_data_url": null,
+        "grainsize_data_url": null
       }
     }
   ]
