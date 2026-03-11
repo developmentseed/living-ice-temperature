@@ -31,28 +31,6 @@ const BOREHOLE_COLORS = {
   all: { hex: "#e53e3e", rgb: [229, 62, 62] as Rgb },
 };
 
-function projectPoints(data: FeatureCollection): FeatureCollection {
-  return {
-    ...data,
-    features: data.features.map((feature) => {
-      const point = feature.geometry as Point;
-      const [x, y] = project.forward(point.coordinates);
-      return {
-        ...feature,
-        geometry: { ...point, coordinates: [x, y] },
-      };
-    }),
-  };
-}
-
-function boreholeColor(feature: Feature): Rgb {
-  const { has_chemistry, has_grain_size } = feature.properties ?? {};
-  if (has_chemistry && has_grain_size) return BOREHOLE_COLORS.all.rgb;
-  if (has_chemistry) return BOREHOLE_COLORS.temperatureChemistry.rgb;
-  if (has_grain_size) return BOREHOLE_COLORS.temperatureGrainSize.rgb;
-  return BOREHOLE_COLORS.temperature.rgb;
-}
-
 const BASEMAP_CATEGORY_COLORS: Record<string, Rgba> = {
   "Ice shelf": [207, 225, 235, 255],
   "Ice tongue": [207, 225, 235, 255],
@@ -70,15 +48,6 @@ const INITIAL_VIEW_STATE = {
   minZoom: -14,
   maxZoom: -4,
 };
-
-function LegendItem({ color, label }: { color: string; label: string }) {
-  return (
-    <HStack gap="2">
-      <Circle size="12px" bg={color} />
-      <Text fontSize="xs">{label}</Text>
-    </HStack>
-  );
-}
 
 export default function Map() {
   const basemapResult = useBasemap();
@@ -144,35 +113,69 @@ export default function Map() {
           object?.properties?.name ?? null
         }
       />
-      <VStack
-        position="absolute"
-        bottom="6"
-        right="3"
-        zIndex="1000"
-        bg="white"
-        p="3"
-        borderRadius="md"
-        shadow="md"
-        gap="1"
-        alignItems="flex-start"
-      >
-        <Text fontWeight="bold" fontSize="sm">
-          Boreholes
-        </Text>
-        <LegendItem
-          color={BOREHOLE_COLORS.temperature.hex}
-          label="Temperature"
-        />
-        <LegendItem
-          color={BOREHOLE_COLORS.temperatureChemistry.hex}
-          label="Temperature + chemistry"
-        />
-        <LegendItem
-          color={BOREHOLE_COLORS.temperatureGrainSize.hex}
-          label="Temperature + grain size"
-        />
-        <LegendItem color={BOREHOLE_COLORS.all.hex} label="All three" />
-      </VStack>
+      <Legend />
     </Box>
   );
+}
+
+function Legend() {
+  return (
+    <VStack
+      position="absolute"
+      bottom="6"
+      right="3"
+      zIndex="1000"
+      bg="white"
+      p="3"
+      borderRadius="md"
+      shadow="md"
+      gap="1"
+      alignItems="flex-start"
+    >
+      <Text fontWeight="bold" fontSize="sm">
+        Boreholes
+      </Text>
+      <LegendItem color={BOREHOLE_COLORS.temperature.hex} label="Temperature" />
+      <LegendItem
+        color={BOREHOLE_COLORS.temperatureChemistry.hex}
+        label="Temperature + chemistry"
+      />
+      <LegendItem
+        color={BOREHOLE_COLORS.temperatureGrainSize.hex}
+        label="Temperature + grain size"
+      />
+      <LegendItem color={BOREHOLE_COLORS.all.hex} label="All three" />
+    </VStack>
+  );
+}
+
+function LegendItem({ color, label }: { color: string; label: string }) {
+  return (
+    <HStack gap="2">
+      <Circle size="12px" bg={color} />
+      <Text fontSize="xs">{label}</Text>
+    </HStack>
+  );
+}
+
+function projectPoints(data: FeatureCollection): FeatureCollection {
+  return {
+    ...data,
+    features: data.features.map((feature) => {
+      const point = feature.geometry as Point;
+      const [x, y] = project.forward(point.coordinates);
+      return {
+        ...feature,
+        geometry: { ...point, coordinates: [x, y] },
+      };
+    }),
+  };
+}
+
+function boreholeColor(feature: Feature): Rgb {
+  const { has_chemistry, has_grain_size } = feature.properties ?? {};
+  if (has_chemistry && has_grain_size) return BOREHOLE_COLORS.all.rgb;
+  if (has_chemistry) return BOREHOLE_COLORS.temperatureChemistry.rgb;
+  if (has_grain_size) return BOREHOLE_COLORS.temperatureGrainSize.rgb;
+  return BOREHOLE_COLORS.temperature.rgb;
 }
