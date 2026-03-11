@@ -13,16 +13,17 @@ const EPSG3031 =
 
 const project = proj4("EPSG:4326", EPSG3031);
 
-const COLOR_TEMPERATURE: [number, number, number] = [49, 130, 206];
-const COLOR_TEMPERATURE_CHEMISTRY: [number, number, number] = [56, 161, 105];
-const COLOR_TEMPERATURE_GRAIN_SIZE: [number, number, number] = [214, 158, 46];
-const COLOR_ALL: [number, number, number] = [229, 62, 62];
+type Rgb = [number, number, number];
+type Rgba = [number, number, number, number];
 
-function rgbToHex([r, g, b]: [number, number, number]): string {
-  return "#" + [r, g, b].map((c) => c.toString(16).padStart(2, "0")).join("");
-}
+const BOREHOLE_COLORS = {
+  temperature: { hex: "#3182ce", rgb: [49, 130, 206] as Rgb },
+  temperatureChemistry: { hex: "#38a169", rgb: [56, 161, 105] as Rgb },
+  temperatureGrainSize: { hex: "#d69e2e", rgb: [214, 158, 46] as Rgb },
+  all: { hex: "#e53e3e", rgb: [229, 62, 62] as Rgb },
+};
 
-function projectBoreholes(data: FeatureCollection): FeatureCollection {
+function projectPoints(data: FeatureCollection): FeatureCollection {
   return {
     ...data,
     features: data.features.map((feature) => {
@@ -36,25 +37,22 @@ function projectBoreholes(data: FeatureCollection): FeatureCollection {
   };
 }
 
-function boreholeColor(feature: Feature): [number, number, number] {
+function boreholeColor(feature: Feature): Rgb {
   const { has_chemistry, has_grain_size } = feature.properties ?? {};
-  if (has_chemistry && has_grain_size) return COLOR_ALL;
-  if (has_chemistry) return COLOR_TEMPERATURE_CHEMISTRY;
-  if (has_grain_size) return COLOR_TEMPERATURE_GRAIN_SIZE;
-  return COLOR_TEMPERATURE;
+  if (has_chemistry && has_grain_size) return BOREHOLE_COLORS.all.rgb;
+  if (has_chemistry) return BOREHOLE_COLORS.temperatureChemistry.rgb;
+  if (has_grain_size) return BOREHOLE_COLORS.temperatureGrainSize.rgb;
+  return BOREHOLE_COLORS.temperature.rgb;
 }
 
-const BASEMAP_CATEGORY_COLORS: Record<
-  string,
-  [number, number, number, number]
-> = {
+const BASEMAP_CATEGORY_COLORS: Record<string, Rgba> = {
   "Ice shelf": [207, 225, 235, 255],
   "Ice tongue": [207, 225, 235, 255],
   Land: [240, 240, 240, 255],
   Rumple: [240, 240, 240, 255],
   Ocean: [163, 189, 209, 255],
 };
-const DEFAULT_BASEMAP_COLOR: [number, number, number, number] = [
+const DEFAULT_BASEMAP_COLOR: Rgba = [
   222, 220, 210, 255,
 ];
 
@@ -82,7 +80,7 @@ export default function Map() {
 
   const projectedBoreholes = useMemo(
     () =>
-      boreholesResult.data ? projectBoreholes(boreholesResult.data) : null,
+      boreholesResult.data ? projectPoints(boreholesResult.data) : null,
     [boreholesResult.data],
   );
 
@@ -144,16 +142,16 @@ export default function Map() {
         <Text fontWeight="bold" fontSize="sm">
           Boreholes
         </Text>
-        <LegendItem color={rgbToHex(COLOR_TEMPERATURE)} label="Temperature" />
+        <LegendItem color={BOREHOLE_COLORS.temperature.hex} label="Temperature" />
         <LegendItem
-          color={rgbToHex(COLOR_TEMPERATURE_CHEMISTRY)}
+          color={BOREHOLE_COLORS.temperatureChemistry.hex}
           label="Temperature + chemistry"
         />
         <LegendItem
-          color={rgbToHex(COLOR_TEMPERATURE_GRAIN_SIZE)}
+          color={BOREHOLE_COLORS.temperatureGrainSize.hex}
           label="Temperature + grain size"
         />
-        <LegendItem color={rgbToHex(COLOR_ALL)} label="All three" />
+        <LegendItem color={BOREHOLE_COLORS.all.hex} label="All three" />
       </VStack>
     </Box>
   );
