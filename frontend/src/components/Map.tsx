@@ -1,5 +1,13 @@
 import { useMemo } from "react";
-import { Box, Circle, HStack, Text, VStack } from "@chakra-ui/react";
+import {
+  AbsoluteCenter,
+  Box,
+  Circle,
+  HStack,
+  Spinner,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
 import { COORDINATE_SYSTEM } from "@deck.gl/core";
 import { OrthographicView } from "@deck.gl/core";
 import { GeoJsonLayer } from "@deck.gl/layers";
@@ -52,9 +60,7 @@ const BASEMAP_CATEGORY_COLORS: Record<string, Rgba> = {
   Rumple: [240, 240, 240, 255],
   Ocean: [163, 189, 209, 255],
 };
-const DEFAULT_BASEMAP_COLOR: Rgba = [
-  222, 220, 210, 255,
-];
+const DEFAULT_BASEMAP_COLOR: Rgba = [222, 220, 210, 255];
 
 const VIEW = new OrthographicView({ id: "ortho", flipY: false });
 
@@ -79,8 +85,7 @@ export default function Map() {
   const boreholesResult = useBoreholes();
 
   const projectedBoreholes = useMemo(
-    () =>
-      boreholesResult.data ? projectPoints(boreholesResult.data) : null,
+    () => (boreholesResult.data ? projectPoints(boreholesResult.data) : null),
     [boreholesResult.data],
   );
 
@@ -108,7 +113,7 @@ export default function Map() {
         getFillColor: (feature: Feature) => [...boreholeColor(feature), 204],
         getLineColor: [255, 255, 255, 255],
         getLineWidth: 1,
-        getPointRadius: 6,
+        getPointRadius: 8,
         pointRadiusUnits: "pixels",
         lineWidthUnits: "pixels",
         lineWidthMinPixels: 1,
@@ -116,6 +121,16 @@ export default function Map() {
         autoHighlight: true,
       }),
   ];
+
+  if (basemapResult.isLoading)
+    return (
+      <AbsoluteCenter>
+        <VStack>
+          Loading Living Ice Temperature...
+          <Spinner />
+        </VStack>
+      </AbsoluteCenter>
+    );
 
   return (
     <Box flex="1" position="relative">
@@ -144,7 +159,10 @@ export default function Map() {
         <Text fontWeight="bold" fontSize="sm">
           Boreholes
         </Text>
-        <LegendItem color={BOREHOLE_COLORS.temperature.hex} label="Temperature" />
+        <LegendItem
+          color={BOREHOLE_COLORS.temperature.hex}
+          label="Temperature"
+        />
         <LegendItem
           color={BOREHOLE_COLORS.temperatureChemistry.hex}
           label="Temperature + chemistry"
