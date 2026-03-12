@@ -1,7 +1,8 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import {
   AbsoluteCenter,
   Box,
+  Checkbox,
   Circle,
   HStack,
   Spinner,
@@ -13,8 +14,10 @@ import { OrthographicView } from "@deck.gl/core";
 import { GeoJsonLayer } from "@deck.gl/layers";
 import { DeckGL } from "@deck.gl/react";
 import { Feature, FeatureCollection, Point } from "geojson";
+import { PMTiles } from "pmtiles";
 import proj4 from "proj4";
 import { useBasemap, useBoreholes } from "../hooks/usePublic";
+import { createTemperatureLayer } from "../layers/temperatureLayer";
 
 const EPSG3031 =
   "+proj=stere +lat_0=-90 +lat_ts=-71 +lon_0=0 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs";
@@ -52,6 +55,14 @@ const INITIAL_VIEW_STATE = {
 export default function Map() {
   const basemapResult = useBasemap();
   const boreholesResult = useBoreholes();
+  const [showTemperatures, setShowTemperatures] = useState(true);
+  const [showBoreholes, setShowBoreholes] = useState(true);
+
+  const pmtiles = useMemo(
+    () =>
+      new PMTiles(import.meta.env.BASE_URL + "temperatures-pure-ice.pmtiles"),
+    [],
+  );
 
   const projectedBoreholes = useMemo(
     () => (boreholesResult.data ? projectPoints(boreholesResult.data) : null),
@@ -71,7 +82,9 @@ export default function Map() {
           return BASEMAP_CATEGORY_COLORS[category] ?? DEFAULT_BASEMAP_COLOR;
         },
       }),
-    projectedBoreholes &&
+    showTemperatures && createTemperatureLayer(pmtiles),
+    showBoreholes &&
+      projectedBoreholes &&
       new GeoJsonLayer({
         id: "boreholes",
         data: projectedBoreholes,
@@ -109,16 +122,37 @@ export default function Map() {
         controller
         layers={layers}
         getCursor={({ isHovering }) => (isHovering ? "pointer" : "grab")}
-        getTooltip={({ object }: { object?: Feature }) =>
-          object?.properties?.name ?? null
-        }
+        getTooltip={({ object }: { object?: Feature }) => {
+          if (!object?.properties) return null;
+          if (object.properties.name) return object.properties.name;
+          if (object.properties.temperature != null) {
+            const celsius = (object.properties.temperature as number) - 273.15;
+            return `${celsius.toFixed(1)} °C`;
+          }
+          return null;
+        }}
       />
-      <Legend />
+      <Legend
+        showTemperatures={showTemperatures}
+        onToggleTemperatures={() => setShowTemperatures((v) => !v)}
+        showBoreholes={showBoreholes}
+        onToggleBoreholes={() => setShowBoreholes((v) => !v)}
+      />
     </Box>
   );
 }
 
-function Legend() {
+function Legend({
+  showTemperatures,
+  onToggleTemperatures,
+  showBoreholes,
+  onToggleBoreholes,
+}: {
+  showTemperatures: boolean;
+  onToggleTemperatures: () => void;
+  showBoreholes: boolean;
+  onToggleBoreholes: () => void;
+}) {
   return (
     <VStack
       position="absolute"
@@ -129,22 +163,45 @@ function Legend() {
       p="3"
       borderRadius="md"
       shadow="md"
-      gap="1"
+      gap="2"
       alignItems="flex-start"
     >
       <Text fontWeight="bold" fontSize="sm">
-        Boreholes
+        Layers
       </Text>
-      <LegendItem color={BOREHOLE_COLORS.temperature.hex} label="Temperature" />
-      <LegendItem
-        color={BOREHOLE_COLORS.temperatureChemistry.hex}
-        label="Temperature + chemistry"
-      />
-      <LegendItem
-        color={BOREHOLE_COLORS.temperatureGrainSize.hex}
-        label="Temperature + grain size"
-      />
-      <LegendItem color={BOREHOLE_COLORS.all.hex} label="All three" />
+      <Checkbox.Root
+        size="sm"
+        checked={showTemperatures}
+        onCheckedChange={onToggleTemperatures}
+      >
+        <Checkbox.HiddenInput />
+        <Checkbox.Control />
+        <Checkbox.Label>Temperatures</Checkbox.Label>
+      </Checkbox.Root>
+      <Checkbox.Root
+        size="sm"
+        checked={showBoreholes}
+        onCheckedChange={onToggleBoreholes}
+      >
+        <Checkbox.HiddenInput />
+        <Checkbox.Control />
+        <Checkbox.Label>Boreholes</Checkbox.Label>
+      </Checkbox.Root>
+      <VStack gap="1" alignItems="flex-start" pl="6">
+        <LegendItem
+          color={BOREHOLE_COLORS.temperature.hex}
+          label="Temperature"
+        />
+        <LegendItem
+          color={BOREHOLE_COLORS.temperatureChemistry.hex}
+          label="Temperature + chemistry"
+        />
+        <LegendItem
+          color={BOREHOLE_COLORS.temperatureGrainSize.hex}
+          label="Temperature + grain size"
+        />
+        <LegendItem color={BOREHOLE_COLORS.all.hex} label="All three" />
+      </VStack>
     </VStack>
   );
 }
